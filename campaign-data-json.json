@@ -1,0 +1,420 @@
+{
+  "npcs": [
+    {
+      "id": 1,
+      "name": "Lilia Windpetal",
+      "ancestry": "Faun",
+      "community": "Wildborne",
+      "occupation": "Cult Leader",
+      "personality": "Calculating, deeply connected to ancient Vistani traditions, values bloodline legacy above all",
+      "appearance": {
+        "face": "sharp-featured",
+        "hair": "long flowing",
+        "clothing": "ornate ceremonial dress",
+        "uniqueFeature": "an intricate tattoo visible on their neck"
+      },
+      "disposition": "Hostile",
+      "status": "Alive",
+      "relationships": ["Mother of Tulip Windpetal", "Wife of Baron Windpetal", "Descended from Ilia"],
+      "notes": "Met: Never. High-ranking member of Children of the Mist cult. Believes Tulip is crucial to 'the Restoration of Barovia and Renewal of the Hero'. Building intelligence networks to locate and retrieve Tulip.",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Jagged Knife Hexer (Tier 1 Support)"
+    },
+    {
+      "id": 2,
+      "name": "Baron Windpetal",
+      "ancestry": "Faun",
+      "community": "Wildborne",
+      "occupation": "Cult Leader",
+      "personality": "Ambitious, fiercely loyal to the cult, prone to arrogance",
+      "appearance": {
+        "face": "weathered",
+        "hair": "graying",
+        "clothing": "dark hooded cloak",
+        "uniqueFeature": "burn scars on their hands"
+      },
+      "disposition": "Hostile",
+      "status": "Alive",
+      "relationships": ["Father of Tulip Windpetal", "Husband of Lilia Windpetal"],
+      "notes": "Met: Never. High-ranking member of Children of the Mist cult. Works with Lilia to retrieve Tulip.",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Jagged Knife Lieutenant (Tier 1 Leader)"
+    },
+    {
+      "id": 3,
+      "name": "Elmer Windpetal",
+      "ancestry": "Human",
+      "community": "Wildborne",
+      "occupation": "Herbalist",
+      "personality": "Kind, protective of family, uncomfortable with civilization",
+      "appearance": {
+        "face": "wrinkled",
+        "hair": "wispy",
+        "clothing": "simple travelers clothes",
+        "uniqueFeature": "calloused hands from their trade"
+      },
+      "disposition": "Friendly",
+      "status": "Alive",
+      "relationships": ["Grandfather of Tulip Windpetal", "Husband of Rosemary Windpetal"],
+      "notes": "Met: Honeywall, Windpetal Herbalist Shop (Session 1). Aware of family Vistani heritage. Trying to protect Tulip by planning to flee to New Barovia. Heading NORTH to Night Hag Sisters after Session 2.",
+      "met": true,
+      "starred": false,
+      "suggestedStatBlock": "Merchant (Tier 1 Social)"
+    },
+    {
+      "id": 4,
+      "name": "Rosemary Windpetal",
+      "ancestry": "Faun",
+      "community": "Wildborne",
+      "occupation": "Herbalist",
+      "personality": "Gentle, natural healer, protective of the innocent",
+      "appearance": {
+        "face": "kind",
+        "hair": "tied back",
+        "clothing": "practical work attire",
+        "uniqueFeature": "a pet always on their shoulder"
+      },
+      "disposition": "Friendly",
+      "status": "Alive",
+      "relationships": ["Grandmother of Tulip Windpetal", "Wife of Elmer Windpetal"],
+      "notes": "Met: Honeywall, Windpetal Herbalist Shop (Session 1). Gave Tulip a magical necklace before parting. Heading NORTH to Night Hag Sisters after Session 2.",
+      "met": true,
+      "starred": false,
+      "suggestedStatBlock": "Merchant (Tier 1 Social)"
+    },
+    {
+      "id": 5,
+      "name": "Grizelda",
+      "ancestry": "Human",
+      "community": "Wildborne",
+      "occupation": "Witch",
+      "personality": "Patient beyond measure, collector of secrets, excellent listener",
+      "appearance": {
+        "face": "gaunt",
+        "hair": "wild and unkempt",
+        "clothing": "flowing colorful scarves",
+        "uniqueFeature": "green-tinted skin"
+      },
+      "disposition": "Neutral",
+      "status": "Alive",
+      "relationships": [],
+      "notes": "Met: Thornwick forest (Session 2). Green-skinned witch who offered safety with blood bond. Performed ritual to help Wattson recover memories. Knows about Bayle's curse on Rooster.",
+      "met": true,
+      "starred": true,
+      "suggestedStatBlock": "Jagged Knife Hexer (Tier 1 Support)"
+    },
+    {
+      "id": 6,
+      "name": "Akmenos",
+      "ancestry": "Elf",
+      "community": "Loreborne",
+      "occupation": "Warlock",
+      "personality": "Obsessed with knowledge, morally flexible, haunted by the past",
+      "appearance": {
+        "face": "angular",
+        "hair": "long flowing",
+        "clothing": "dark hooded cloak",
+        "uniqueFeature": "eyes that glow faintly green"
+      },
+      "disposition": "Neutral",
+      "status": "Unknown",
+      "relationships": ["Creator of Wattson", "Former party member with Arkus"],
+      "notes": "Met: Never (only revealed in memory). Warlock who saved Arkus Vistanavich's soul 115 years ago and bound it to mechanical construct (Wattson). Used forbidden magic. True creator of Wattson. Left message for Wattson: 'When the Hero returns and darkness stirs, you will feel the pull. Seek me then, and I will unlock what was hidden to protect you.'",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 7,
+      "name": "Egos the Gnome",
+      "ancestry": "Halfling",
+      "community": "Slyborne",
+      "occupation": "Artificer",
+      "personality": "Trust issues, morally flexible, skilled negotiator",
+      "appearance": {
+        "face": "round",
+        "hair": "short cropped",
+        "clothing": "practical work attire",
+        "uniqueFeature": "multiple tools hanging from belt"
+      },
+      "disposition": "Hostile",
+      "status": "Alive",
+      "relationships": ["Works for Children of the Mist"],
+      "notes": "Met: Port Majula (Session 0). Replaced Wattson's power gem. Reinforced false Mycroft memories and added subtle programming. Working for Children of the Mist.",
+      "met": true,
+      "starred": false,
+      "suggestedStatBlock": "Merchant (Tier 1 Social)"
+    },
+    {
+      "id": 8,
+      "name": "Captain Varek Stormclaw",
+      "ancestry": "Orc",
+      "community": "Orderborne",
+      "occupation": "Guard Captain",
+      "personality": "Honest to bluntness, values strength and courage, respects worthy opponents",
+      "appearance": {
+        "face": "stern",
+        "hair": "short cropped",
+        "clothing": "chainmail and tabard",
+        "uniqueFeature": "a distinctive scar across their cheek"
+      },
+      "disposition": "Neutral",
+      "status": "Deceased",
+      "relationships": [],
+      "notes": "Met: Honeywall town square (Session 2). Captain of Honeywall Militia. Touched Rooster to check on him during comatose screaming - the screams killed him instantly, mind shattered by relentless voices. DECEASED.",
+      "met": true,
+      "starred": false,
+      "suggestedStatBlock": "Jagged Knife Lieutenant (Tier 1 Leader)"
+    },
+    {
+      "id": 9,
+      "name": "Lysandera",
+      "ancestry": "Elf",
+      "community": "Wanderborne",
+      "occupation": "Unknown",
+      "personality": "Mysterious, restless spirit, knows many languages",
+      "appearance": {
+        "face": "youthful",
+        "hair": "long flowing",
+        "clothing": "exotic foreign garb",
+        "uniqueFeature": "heterochromia"
+      },
+      "disposition": "Friendly",
+      "status": "Alive",
+      "relationships": ["Recognizes Wattson intimately"],
+      "notes": "Met: Port Majula (Session 0). Elven woman who seemed to recognize Wattson intimately. Asked if he had 'received the message'. Promised to meet him in Sherlock once message arrives, then vanished mysteriously.",
+      "met": true,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 10,
+      "name": "Madame Velora Nightwhisper",
+      "ancestry": "Human",
+      "community": "Highborne",
+      "occupation": "Priest",
+      "personality": "Expects deference, politically minded, well-educated",
+      "appearance": {
+        "face": "sharp-featured",
+        "hair": "braided",
+        "clothing": "ornate ceremonial dress",
+        "uniqueFeature": "jewelry that jingles when they move"
+      },
+      "disposition": "Friendly",
+      "status": "Alive",
+      "relationships": ["Priest at Church of the Mindfreak"],
+      "notes": "Met: Church of the Mindfreak, Honeywall (Session 1). Priest of Criss Angel. Proposed plan to counter David Blaine that proved useless as events spiraled.",
+      "met": true,
+      "starred": false,
+      "suggestedStatBlock": "Merchant (Tier 1 Social)"
+    },
+    {
+      "id": 11,
+      "name": "David Blaine",
+      "ancestry": "Human",
+      "community": "Slyborne",
+      "occupation": "Minor Demigod",
+      "personality": "Always has backup plan, excellent liar, values information",
+      "appearance": {
+        "face": "smooth",
+        "hair": "oiled",
+        "clothing": "fine silk robes",
+        "uniqueFeature": "eyes that seem to see through illusions"
+      },
+      "disposition": "Hostile",
+      "status": "Deceased",
+      "relationships": ["Mentor to Strahd (young assistant)", "Rival to Criss Angel"],
+      "notes": "Met: Honeywall (Session 1). Minor Demigod of Illusions. Had young Vistani assistant named Strahd. Confrontation with Rooster escalated when Rooster challenged him. Assassination attempt made during failed miracle attempt. DECEASED.",
+      "met": true,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 12,
+      "name": "Strahd (young)",
+      "ancestry": "Human",
+      "community": "Wanderborne",
+      "occupation": "Assistant",
+      "personality": "Mysterious, clever, ambitious",
+      "appearance": {
+        "face": "youthful",
+        "hair": "dark",
+        "clothing": "simple travelers clothes",
+        "uniqueFeature": "unusually intense gaze"
+      },
+      "disposition": "Neutral",
+      "status": "Alive",
+      "relationships": ["Assistant to David Blaine", "Apparent Vistani descent"],
+      "notes": "Met: Honeywall (Session 1). Young boy assisting David Blaine. Apparent Vistani descent. Present during confrontation.",
+      "met": true,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 13,
+      "name": "Thane (Demigod of History)",
+      "ancestry": "Dwarf",
+      "community": "Loreborne",
+      "occupation": "Demigod",
+      "personality": "Deeply traditional, obsessed with knowledge, archives everything",
+      "appearance": {
+        "face": "wrinkled",
+        "hair": "long braided beard",
+        "clothing": "ancient robes",
+        "uniqueFeature": "eyes that hold millennia of knowledge"
+      },
+      "disposition": "Friendly",
+      "status": "Deceased",
+      "relationships": ["Murdered by Bayle the Butcher"],
+      "notes": "Met: Never (killed before Session 1). Demigod of History. Murdered by Bayle the Butcher. Gave ancient book to Tulip before death chronicling her Vistani ancestors. DECEASED.",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 14,
+      "name": "Ilia",
+      "ancestry": "Human",
+      "community": "Wanderborne",
+      "occupation": "Unknown",
+      "personality": "Unknown",
+      "appearance": {
+        "face": "unknown",
+        "hair": "unknown",
+        "clothing": "unknown",
+        "uniqueFeature": "unknown"
+      },
+      "disposition": "Neutral",
+      "status": "Unknown",
+      "relationships": ["Original party member who stayed with Strahd", "Ancestor of Lilia Windpetal"],
+      "notes": "Met: Never (historical figure from 115+ years ago). One of the original heroes from ancient Curse of Strahd campaign. Stayed with Strahd after the campaign ended. Ancestor to Tulip's mother Lilia.",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 15,
+      "name": "Arkus Vistanavich",
+      "ancestry": "Human",
+      "community": "Wanderborne",
+      "occupation": "Gunslinger",
+      "personality": "Values friendship above all, fiercely loyal once earned, haunted by past",
+      "appearance": {
+        "face": "weathered",
+        "hair": "dark",
+        "clothing": "worn leather armor",
+        "uniqueFeature": "mechanical body (currently)"
+      },
+      "disposition": "Friendly",
+      "status": "Unknown",
+      "relationships": ["True identity of Wattson", "Father of Ana (corrupted by Dark Power)", "Worked for Strahd 115 years ago"],
+      "notes": "Met: This IS Wattson, but identity unknown to party. Legendary Vistani gunslinger from 115 years ago. Lost daughter Ana to Dark Power corruption. Was corrupted himself serving Strahd. Died purified and soul was saved by Akmenos, bound to W47750-N (Wattson). Dying words: 'Avenge me... kill the devil Strahd... and kill that thing that wears my daughter's face...'",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 16,
+      "name": "Alejandra",
+      "ancestry": "Unknown",
+      "community": "Unknown",
+      "occupation": "Unknown",
+      "personality": "Unknown",
+      "appearance": {
+        "face": "unknown",
+        "hair": "unknown",
+        "clothing": "unknown",
+        "uniqueFeature": "unknown"
+      },
+      "disposition": "Neutral",
+      "status": "Unknown",
+      "relationships": ["Original party member from 115 years ago", "Fought alongside Akmenos and Ilia"],
+      "notes": "Met: Never (historical figure). One of the original heroes who fought Arkus/Ana 115 years ago. Fought alongside Akmenos and Ilia.",
+      "met": false,
+      "starred": false,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 17,
+      "name": "Bayle the Butcher",
+      "ancestry": "Human",
+      "community": "Slyborne",
+      "occupation": "Serial Killer",
+      "personality": "Unknown",
+      "appearance": {
+        "face": "unknown",
+        "hair": "unknown",
+        "clothing": "elven armor (half-burned)",
+        "uniqueFeature": "headless (head taken by Rooster)"
+      },
+      "disposition": "Hostile",
+      "status": "Deceased",
+      "relationships": ["Vessel for Rahadin's resurrection", "Killed Thane"],
+      "notes": "Met: Never directly (killed before Session 1). Serial killer created/corrupted by Strahd to be vessel for Rahadin's soul. Each soul claimed fed Rahadin's reconstruction over 100 years. Was 99% complete - one blood moon away from transformation. Rooster killed him mid-transformation during final phase. Rooster took his head as trophy. DECEASED.",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    },
+    {
+      "id": 18,
+      "name": "Rahadin",
+      "ancestry": "Elf",
+      "community": "Unknown",
+      "occupation": "Chamberlain",
+      "personality": "Unknown",
+      "appearance": {
+        "face": "unknown",
+        "hair": "unknown",
+        "clothing": "unknown",
+        "uniqueFeature": "spirit form currently"
+      },
+      "disposition": "Hostile",
+      "status": "Deceased",
+      "relationships": ["Strahd's most loyal servant", "Died 250-275 years ago", "Spirit currently in Rooster"],
+      "notes": "Met: Never (died 250+ years ago, spirit in Rooster). Strahd's most loyal and capable servant - chamberlain, strategist, enforcer. Died fighting heroes in original Curse of Strahd campaign. Strahd spent 100 years using Bayle to reconstruct his soul. Rooster killed Bayle at 99% completion - Rahadin's completed spirit leaked into Rooster. At next blood moon (2-4 weeks), transformation will complete and Rooster's soul will be overwritten.",
+      "met": false,
+      "starred": true,
+      "suggestedStatBlock": "Standard adversary for their tier"
+    }
+  ],
+  "towns": [
+    {
+      "id": 101,
+      "name": "Honeywall",
+      "vibe": "Trade hub, always busy",
+      "notableLocation": "Church of the Mindfreak (Criss Angel)",
+      "localTension": "Power vacuum after David Blaine's death",
+      "knownFor": "Strategic crossroads location",
+      "buildings": [],
+      "notes": "Met: Sessions 1-2. Where the party split after Captain Varek's death and accusations against Tulip. Windpetal Herbalist Shop run by Elmer and Rosemary. David Blaine operated here before assassination.",
+      "starred": true
+    },
+    {
+      "id": 102,
+      "name": "Port Majula",
+      "vibe": "Bustling port city",
+      "notableLocation": "The docks and shipping district",
+      "localTension": "Unknown",
+      "knownFor": "Major port and trade center",
+      "buildings": [],
+      "notes": "Met: Session 0. Where Wattson had his power gem replaced by Egos. Where Lysandera approached Wattson asking about 'the message'.",
+      "starred": false
+    },
+    {
+      "id": 103,
+      "name": "Thornwick",
+      "vibe": "Ancient magical woods",
+      "notableLocation": "Grizelda's cottage",
+      "localTension": "Unknown",
+      "knownFor": "Ancient forest with magical properties",
+      "buildings": [],
+      "notes": "Met: Session 2. Where Wattson fell down a hill after fleeing Honeywall. Grizelda found him here and offered sanctuary with blood bond. Performed memory ritual here.",
+      "starred": true
+    }
+  ],
+  "areas": [],
+  "loot": [],
+  "plotHooks": []
+}
