@@ -5,8 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daggerheart Campaign Manager</title>
   <style>
+    :root {
+      --bg-canvas: #0b1120;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --bg-surface-alt: #374151;
+      --border-soft: rgba(148, 163, 184, 0.12);
+      --border-strong: rgba(59, 130, 246, 0.25);
+      --shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.45);
+      --text-primary: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-red: #dc2626;
+      --accent-gold: #fbbf24;
+      --accent-blue: #3b82f6;
+      --radius-lg: 0.75rem;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #111827; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; padding: 1.5rem; }
+    body {
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 45%),
+                  radial-gradient(circle at bottom right, rgba(248, 113, 113, 0.1), transparent 40%),
+                  var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
     .container { max-width: 1280px; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
     h1 { color: #dc2626; font-size: 2.25rem; }
@@ -31,8 +55,8 @@
     .tab-session { background: #0f172a; border: 2px solid #1e40af; font-weight: bold; }
     .tab-session.active { background: #1e40af; color: #fbbf24; }
     .tab-session:hover:not(.active) { background: #1e293b; }
-    .content { background: #1f2937; border-radius: 0.5rem; padding: 1.5rem; }
-    .card { background: #374151; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+    .content { background: var(--bg-panel); border-radius: var(--radius-lg); padding: 2rem; box-shadow: 0 15px 45px rgba(15, 23, 42, 0.35); }
+    .card { background: var(--bg-surface-alt); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
     .card-title { font-weight: bold; font-size: 1.125rem; }
     .card-content { color: #d1d5db; }
@@ -63,41 +87,191 @@
     svg { width: 1.125rem; height: 1.125rem; }
     
     /* Session View */
-    .session-container { display: grid; gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
-    .fear-tracker { background: #1f2937; padding: 1rem; border-radius: 0.5rem; text-align: center; }
-    .fear-tokens { display: flex; justify-content: center; gap: 0.375rem; margin: 0.75rem 0; flex-wrap: wrap; }
+    .session-container {
+      display: grid;
+      gap: 1.75rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "fear countdown"
+        "spotlight combat";
+    }
+
+    .session-section {
+      background: linear-gradient(150deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.92));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .session-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 55%);
+      opacity: 0.9;
+    }
+
+    .session-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .session-section.fear-tracker { grid-area: fear; }
+    .session-section.countdown-section { grid-area: countdown; }
+    .session-section.spotlight-section { grid-area: spotlight; }
+    .session-section.combat-zones-section { grid-area: combat; }
+
+    .session-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .session-heading-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .session-subtitle {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .session-section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .session-section-title svg { width: 1.25rem; height: 1.25rem; color: var(--accent-gold); }
+
+    .session-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-weight: 700;
+      color: var(--accent-gold);
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .session-metric span:last-child { font-size: 0.75rem; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; }
+
+    .session-toolbar { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .session-toolbar select,
+    .session-toolbar input[type="text"] {
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+      min-width: 150px;
+    }
+
+    .session-divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(148, 163, 184, 0), rgba(148, 163, 184, 0.35), rgba(148, 163, 184, 0));
+    }
+
+    .session-subcard {
+      background: rgba(15, 23, 42, 0.65);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .session-subcard h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
+    @media (max-width: 1024px) {
+      .session-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "fear"
+          "countdown"
+          "spotlight"
+          "combat";
+      }
+    }
+    .fear-tokens { display: flex; justify-content: flex-start; gap: 0.375rem; margin: 0.75rem 0; flex-wrap: wrap; }
     .fear-token { width: 30px; height: 30px; background: linear-gradient(135deg, #dc2626, #991b1b); border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.2); transition: all 0.4s ease; position: relative; }
     .fear-token.empty { background: #374151; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
     .fear-token.spending { animation: spendFear 0.6s ease; }
     .fear-token.gaining { animation: gainFear 0.5s ease; }
     @keyframes spendFear { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.8; background: #fbbf24; } 100% { transform: scale(0.8); opacity: 1; } }
     @keyframes gainFear { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
-    .fear-controls { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
+    .fear-controls { display: flex; gap: 0.65rem; justify-content: flex-start; margin-top: 0.75rem; flex-wrap: wrap; }
     .fear-spend-flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(220, 38, 38, 0.8); display: flex; align-items: center; justify-content: center; z-index: 9999; animation: flashFear 1.2s ease-out; pointer-events: none; }
     .fear-spend-text { font-size: 5rem; font-weight: bold; color: white; text-shadow: 0 0 30px rgba(0,0,0,0.8); animation: fearTextPulse 1.2s ease-out; }
     @keyframes flashFear { 0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
     @keyframes fearTextPulse { 0% { transform: scale(0.5); opacity: 0; } 30% { transform: scale(1.2); opacity: 1; } 70% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0; } }
     
-    .countdown-section { background: #1f2937; padding: 2rem; border-radius: 0.5rem; }
-    .countdown-item { background: #374151; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.75rem; }
+    .countdown-item {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1.1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      margin-bottom: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    }
     .countdown-item.at-zero { border: 2px solid #fbbf24; }
-    .countdown-display { display: flex; justify-content: center; gap: 0.5rem; margin: 1rem 0; flex-wrap: wrap; }
+    .countdown-display { display: flex; justify-content: flex-start; gap: 0.5rem; margin: 1rem 0; flex-wrap: wrap; }
     .countdown-pip { width: 30px; height: 30px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
     .countdown-pip.empty { background: #1f2937; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
     .countdown-pip.decreasing { animation: decreaseCountdown 0.4s ease; }
     .countdown-pip.increasing { animation: increaseCountdown 0.4s ease; }
     @keyframes decreaseCountdown { 0% { transform: scale(1); } 50% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
     @keyframes increaseCountdown { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-    .countdown-controls { display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin-top: 1rem; }
-    .add-countdown-form { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; gap: 0.75rem; align-items: end; flex-wrap: wrap; margin-bottom: 1rem; }
+    .countdown-controls { display: flex; gap: 0.75rem; align-items: center; justify-content: flex-start; margin-top: 1rem; flex-wrap: wrap; }
+    .add-countdown-form {
+      background: rgba(15, 23, 42, 0.65);
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      display: flex;
+      gap: 0.85rem;
+      align-items: end;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
     .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
     .form-field label { font-size: 0.875rem; color: #9ca3af; }
-    .form-field input, .form-field select { padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; }
+    .form-field input,
+    .form-field select {
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+    }
     
-    .spotlight-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; }
-    .spotlight-controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .spotlight-controls { display: flex; gap: 0.75rem; margin-bottom: 0; width: 100%; }
+    .spotlight-controls select { flex: 1; }
     .spotlight-grid { display: grid; gap: 1rem; }
-    .spotlight-player { background: #374151; padding: 1rem; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .spotlight-player {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1.1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    }
     .spotlight-info { flex: 1; }
     .spotlight-name { font-weight: bold; font-size: 1rem; margin-bottom: 0.5rem; }
     .spotlight-pips { display: flex; gap: 0.25rem; }
@@ -105,10 +279,23 @@
     .spotlight-pip.empty { background: #1f2937; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
     
     /* Combat Zones */
-    .combat-zones-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; }
-    .combat-zones-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .combat-zone { background: #374151; padding: 1rem; border-radius: 0.5rem; border: 2px solid #4b5563; min-height: 150px; }
-    .combat-zone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4b5563; }
+    .combat-zones-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .combat-zone {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1.25rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      min-height: 160px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.32);
+    }
+    .combat-zone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
     .combat-zone-name { font-weight: bold; font-size: 1rem; color: #fbbf24; cursor: text; flex: 1; padding: 0.25rem; background: transparent; border: none; }
     .combat-zone-name:hover { background: #1f2937; border-radius: 0.25rem; }
     .zone-tokens-container { display: flex; flex-direction: column; gap: 0.5rem; min-height: 80px; }
@@ -121,9 +308,30 @@
     .zone-token.npc-token { border-left: 3px solid #3b82f6; }
     .token-name { font-size: 0.875rem; font-weight: 500; }
     .combat-zone.drag-over { background: #1f2937; border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-    .zone-controls { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
-    .unassigned-tokens { background: #374151; padding: 1rem; border-radius: 0.5rem; border: 2px dashed #4b5563; margin-top: 1rem; }
-    .add-token-form { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+    .zone-controls { display: flex; gap: 0.75rem; margin-top: 0; flex-wrap: wrap; }
+    .unassigned-tokens {
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.4);
+      margin-top: 1.5rem;
+    }
+    .add-token-form {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .add-token-form select,
+    .add-token-form input[type="text"] {
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+    }
     
     /* Streamer View */
     .streamer-view { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; padding: 3rem; }
@@ -194,12 +402,13 @@
               <option value="Sorcerer">Sorcerer</option>
               <option value="Wizard">Wizard</option>
             </select>
+            <input type="number" id="pc-evasion" placeholder="Evasion" min="0" style="width: 120px; padding: 0.5rem; background: #374151; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
             <button class="btn-green" onclick="addPC()">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               Add PC
             </button>
           </div>
-          <div id="pc-list" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+          <div id="pc-list" style="display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));"></div>
         </div>
 
         <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">NPCs</h2>
@@ -302,99 +511,135 @@
         </div>
 
         <div class="session-container">
-         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-            <div class="fear-tracker">
-              <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Fear</h2>
-              <div style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; color: #dc2626;">
-                <span id="fear-counter">0</span> / 12
+          <section class="session-section fear-tracker">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Table Pulse</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M8.757 15.243l-2.12 2.121m12.727 0l-2.122-2.121M8.757 8.757L6.636 6.636"/></svg>
+                  Fear
+                </h2>
               </div>
-              <div id="fear-display" class="fear-tokens"></div>
-              <div class="fear-controls">
-                <button class="btn-primary" onclick="modifyFear(-1)">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
-                  Spend Fear
-                </button>
-                <button class="btn-primary" onclick="modifyFear(1)">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Add Fear
-                </button>
+              <div class="session-metric">
+                <span id="fear-counter">0</span>
+                <span>Max 12</span>
               </div>
             </div>
-
-            <div class="countdown-section" style="padding: 1.5rem;">
-              <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Countdowns</h2>
-              
-              <div class="add-countdown-form">
-                <div class="form-field" style="flex: 2; min-width: 150px;">
-                  <label>Name</label>
-                  <input type="text" id="countdown-name" placeholder="Countdown name">
-                </div>
-                <div class="form-field" style="flex: 1; min-width: 100px;">
-                  <label>Max</label>
-                  <select id="countdown-max">
-                    <option value="4">d4</option>
-                    <option value="6" selected>d6</option>
-                    <option value="8">d8</option>
-                    <option value="10">d10</option>
-                    <option value="12">d12</option>
-                  </select>
-                </div>
-                <button class="btn-green" onclick="addCountdown()" style="align-self: flex-end;">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Add
-                </button>
-              </div>
-              
-              <div id="countdowns-list"></div>
+            <div class="session-divider"></div>
+            <div id="fear-display" class="fear-tokens"></div>
+            <div class="session-toolbar fear-controls">
+              <button class="btn-primary" onclick="modifyFear(-1)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
+                Spend Fear
+              </button>
+              <button class="btn-primary" onclick="modifyFear(1)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add Fear
+              </button>
             </div>
-          </div>
+          </section>
 
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-            <div class="spotlight-section">
-              <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Spotlight</h2>
-              <div class="spotlight-controls">
-                <select id="spotlight-pc-select" style="flex: 1; padding: 0.5rem; background: #374151; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
-                  <option value="">Select PC</option>
+          <section class="session-section countdown-section">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Escalations</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l2.5 1.5M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/></svg>
+                  Countdowns
+                </h2>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Keep looming threats visible and adjust their pace on the fly.</p>
+            <div class="session-divider"></div>
+
+            <div class="add-countdown-form">
+              <div class="form-field" style="flex: 2; min-width: 160px;">
+                <label>Name</label>
+                <input type="text" id="countdown-name" placeholder="Countdown name">
+              </div>
+              <div class="form-field" style="flex: 1; min-width: 110px;">
+                <label>Max</label>
+                <select id="countdown-max">
+                  <option value="4">d4</option>
+                  <option value="6" selected>d6</option>
+                  <option value="8">d8</option>
+                  <option value="10">d10</option>
+                  <option value="12">d12</option>
                 </select>
-                <button class="btn-green" onclick="addSpotlightPlayer()">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Add
-                </button>
               </div>
-              <div id="spotlight-list" class="spotlight-grid"></div>
+              <button class="btn-green" onclick="addCountdown()" style="align-self: flex-end;">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add
+              </button>
             </div>
 
-            <div class="combat-zones-section">
-              <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Combat Zones</h2>
-              <div class="zone-controls">
-                <button class="btn-green" onclick="addCombatZone()">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Add Zone
-                </button>
-              </div>
-              <div id="combat-zones-container" class="combat-zones-container"></div>
-              
-              <div class="unassigned-tokens">
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.75rem;">Unassigned Tokens</h3>
-                <div class="add-token-form">
-                  <select id="token-type" style="padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
-                    <option value="adversary">Adversary</option>
-                    <option value="custom">Custom</option>
-                    <option value="npc">Saved NPC</option>
-                  </select>
-                  <input type="text" id="token-name" placeholder="Token name" style="flex: 1; padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; min-width: 150px;">
-                  <select id="token-npc-select" class="hidden" style="flex: 1; padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; min-width: 150px;">
-                    <option value="">Select NPC</option>
-                  </select>
-                  <button class="btn-green" onclick="addCombatToken()">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    Add Token
-                  </button>
-                </div>
-                <div id="unassigned-tokens" class="zone-tokens-container"></div>
+            <div id="countdowns-list"></div>
+          </section>
+
+          <section class="session-section spotlight-section">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Moments</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v18m9-9H3"/></svg>
+                  Spotlight
+                </h2>
               </div>
             </div>
-          </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Queue up who deserves shine next and celebrate their evasion edge.</p>
+            <div class="session-divider"></div>
+            <div class="session-toolbar spotlight-controls">
+              <select id="spotlight-pc-select">
+                <option value="">Select PC</option>
+              </select>
+              <button class="btn-green" onclick="addSpotlightPlayer()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add
+              </button>
+            </div>
+            <div id="spotlight-list" class="spotlight-grid"></div>
+          </section>
+
+          <section class="session-section combat-zones-section">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Engagements</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16"/></svg>
+                  Combat Zones
+                </h2>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Arrange battlefields, drag tokens between zones, and keep stragglers handy.</p>
+            <div class="session-divider"></div>
+            <div class="session-toolbar zone-controls">
+              <button class="btn-green" onclick="addCombatZone()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add Zone
+              </button>
+            </div>
+            <div id="combat-zones-container" class="combat-zones-container"></div>
+
+            <div class="session-subcard unassigned-tokens">
+              <h3>Unassigned Tokens</h3>
+              <div class="add-token-form">
+                <select id="token-type">
+                  <option value="adversary">Adversary</option>
+                  <option value="custom">Custom</option>
+                  <option value="npc">Saved NPC</option>
+                </select>
+                <input type="text" id="token-name" placeholder="Token name" style="flex: 1; min-width: 150px;">
+                <select id="token-npc-select" class="hidden" style="flex: 1; min-width: 150px;">
+                  <option value="">Select NPC</option>
+                </select>
+                <button class="btn-green" onclick="addCombatToken()">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  Add Token
+                </button>
+              </div>
+              <div id="unassigned-tokens" class="zone-tokens-container"></div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -462,23 +707,44 @@
     function addPC() {
       const name = document.getElementById('pc-name').value.trim();
       const pcClass = document.getElementById('pc-class').value;
-      
+      const evasionInput = document.getElementById('pc-evasion');
+      const evasionRaw = evasionInput.value.trim();
+      let evasionValue = null;
+
+      if (evasionRaw !== '') {
+        const parsed = parseInt(evasionRaw, 10);
+        if (isNaN(parsed) || parsed < 0) {
+          alert('Please enter a valid evasion score (0 or higher).');
+          return;
+        }
+        evasionValue = parsed;
+      }
+
       if (!name || !pcClass) {
         alert('Please enter both name and class');
         return;
       }
-      
-      data.pcs.push({
+
+      const newPc = {
         id: Date.now(),
         name,
         class: pcClass
-      });
-      
+      };
+
+      if (evasionValue !== null) {
+        newPc.evasion = evasionValue;
+      }
+
+      data.pcs.push(newPc);
+
       saveToStorage();
       renderPCs();
-      
+      populateSpotlightSelect();
+      renderCombatZones();
+
       document.getElementById('pc-name').value = '';
       document.getElementById('pc-class').value = '';
+      evasionInput.value = '';
     }
 
     function deletePC(id) {
@@ -489,22 +755,69 @@
       }
     }
 
+    function updatePCEvasion(id, value) {
+      const pc = data.pcs.find(pc => pc.id === id);
+      if (!pc) return;
+
+      const trimmed = String(value ?? '').trim();
+
+      if (trimmed === '') {
+        delete pc.evasion;
+      } else {
+        const parsed = parseInt(trimmed, 10);
+        if (isNaN(parsed) || parsed < 0) {
+          return;
+        }
+        pc.evasion = parsed;
+      }
+
+      saveToStorage();
+      renderPCs();
+      renderSpotlightTracker();
+      populateSpotlightSelect();
+      renderCombatZones();
+    }
+
     function renderPCs() {
       const container = document.getElementById('pc-list');
       if (data.pcs.length === 0) {
         container.innerHTML = '<p class="empty-state">No PCs added yet</p>';
         return;
       }
-      
-      container.innerHTML = data.pcs.map(pc => `
-        <div style="background: #374151; padding: 0.5rem 1rem; border-radius: 0.375rem; display: flex; gap: 0.5rem; align-items: center;">
-          <span style="font-weight: 500;">${pc.name}</span>
-          <span style="color: #9ca3af; font-size: 0.875rem;">(${pc.class})</span>
-          <button class="delete-btn" onclick="deletePC(${pc.id})">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-      `).join('');
+
+      container.innerHTML = data.pcs.map(pc => {
+        const evasion = typeof pc.evasion === 'number' ? pc.evasion : (pc.evasion !== undefined ? parseInt(pc.evasion, 10) : null);
+        const evasionValue = Number.isNaN(evasion) ? '' : (evasion ?? '');
+
+        return `
+          <div style="background: #374151; padding: 0.75rem 1rem; border-radius: 0.375rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1; min-width: 140px;">
+              <span style="font-weight: 600; font-size: 1rem;">${pc.name}</span>
+              <span style="color: #9ca3af; font-size: 0.875rem;">${pc.class}</span>
+            </div>
+            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #d1d5db;">
+              <span style="color: #9ca3af;">Evasion</span>
+              <input type="number"
+                     min="0"
+                     value="${evasionValue === '' ? '' : evasionValue}"
+                     placeholder="-"
+                     onchange="updatePCEvasion(${pc.id}, this.value)"
+                     style="width: 80px; padding: 0.35rem 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
+            </label>
+            <button class="delete-btn" onclick="deletePC(${pc.id})">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getPcDisplayName(pc) {
+      if (!pc) return 'Unknown PC';
+      const rawEvasion = pc.evasion;
+      const numeric = typeof rawEvasion === 'number' ? rawEvasion : parseInt(rawEvasion, 10);
+      const hasEvasion = rawEvasion !== undefined && rawEvasion !== null && !Number.isNaN(numeric);
+      return hasEvasion ? `${pc.name} (Ev ${numeric})` : pc.name;
     }
 
     // NPC Functions
@@ -1241,7 +1554,7 @@
       const availablePCs = data.pcs.filter(pc => !alreadyInSpotlight.includes(pc.id));
       
       select.innerHTML = '<option value="">Select PC</option>' +
-        availablePCs.map(pc => `<option value="${pc.id}">${pc.name}</option>`).join('');
+        availablePCs.map(pc => `<option value="${pc.id}">${getPcDisplayName(pc)}</option>`).join('');
     }
 
     function addSpotlightPlayer() {
@@ -1293,29 +1606,34 @@
         return;
       }
       
-      container.innerHTML = data.sessionState.spotlightPlayers.map(player => `
-        <div class="spotlight-player">
-          <div class="spotlight-info">
-            <div class="spotlight-name">${player.name}</div>
-            <div class="spotlight-pips">
-              ${Array.from({length: 6}, (_, i) => 
-                `<div class="spotlight-pip ${i < player.pips ? '' : 'empty'}"></div>`
-              ).join('')}
+      container.innerHTML = data.sessionState.spotlightPlayers.map(player => {
+        const pc = data.pcs.find(p => p.id === player.pcId);
+        const displayName = pc ? getPcDisplayName(pc) : player.name;
+
+        return `
+          <div class="spotlight-player">
+            <div class="spotlight-info">
+              <div class="spotlight-name">${displayName}</div>
+              <div class="spotlight-pips">
+                ${Array.from({length: 6}, (_, i) =>
+                  `<div class="spotlight-pip ${i < player.pips ? '' : 'empty'}"></div>`
+                ).join('')}
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <button class="btn-gray" onclick="modifySpotlight(${player.id}, -1)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
+              </button>
+              <button class="btn-gray" onclick="modifySpotlight(${player.id}, 1)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <button class="delete-btn" onclick="removeSpotlight(${player.id})">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
             </div>
           </div>
-          <div style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="btn-gray" onclick="modifySpotlight(${player.id}, -1)">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
-            </button>
-            <button class="btn-gray" onclick="modifySpotlight(${player.id}, 1)">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            </button>
-            <button class="delete-btn" onclick="removeSpotlight(${player.id})">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 // Combat Zones Functions
     function addCombatZone() {
@@ -1506,16 +1824,40 @@
           const tokens = (zone.tokenIds || [])
             .map(tokenId => data.sessionState.combatTokens.find(t => t.id === tokenId))
             .filter(t => t);
-          
+
+          const zoneTokensHtml = tokens.length === 0
+            ? '<p class="empty-state" style="text-align: center; padding: 1rem; font-size: 0.875rem;">Drop tokens here</p>'
+            : tokens.map(token => {
+                const tokenType = token.type || 'custom';
+                const displayName = tokenType === 'pc'
+                  ? (() => {
+                      const pc = data.pcs.find(p => p.id === token.pcId);
+                      return pc ? getPcDisplayName(pc) : token.name;
+                    })()
+                  : token.name;
+
+                return `
+                    <div class="zone-token ${tokenType}-token"
+                         draggable="true"
+                         ondragstart="handleTokenDragStart(event, ${token.id})"
+                         ondragend="handleTokenDragEnd(event)">
+                      <span class="token-name">${displayName}</span>
+                      <button class="delete-btn" onclick="deleteCombatToken(${token.id})">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                      </button>
+                    </div>
+                  `;
+              }).join('');
+
           return `
-            <div class="combat-zone" 
-                 ondragover="handleZoneDragOver(event)" 
+            <div class="combat-zone"
+                 ondragover="handleZoneDragOver(event)"
                  ondragleave="handleZoneDragLeave(event)"
                  ondrop="handleZoneDrop(event, ${zone.id})">
               <div class="combat-zone-header">
-                <input 
-                  type="text" 
-                  class="combat-zone-name" 
+                <input
+                  type="text"
+                  class="combat-zone-name"
                   value="${zone.name}"
                   onblur="renameCombatZone(${zone.id}, this.value)"
                   onkeypress="if(event.key === 'Enter') this.blur()">
@@ -1524,61 +1866,61 @@
                 </button>
               </div>
               <div class="zone-tokens-container">
-                ${tokens.length === 0 ? '<p class="empty-state" style="text-align: center; padding: 1rem; font-size: 0.875rem;">Drop tokens here</p>' : 
-                  tokens.map(token => `
-                    <div class="zone-token ${token.type}-token" 
-                         draggable="true"
-                         ondragstart="handleTokenDragStart(event, ${token.id})"
-                         ondragend="handleTokenDragEnd(event)">
-                      <span class="token-name">${token.name}</span>
-                      <button class="delete-btn" onclick="deleteCombatToken(${token.id})">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                      </button>
-                    </div>
-                  `).join('')
-                }
+                ${zoneTokensHtml}
               </div>
             </div>
           `;
         }).join('');
       }
-      
+
       const unassignedTokens = data.sessionState.combatTokens.filter(t => !t.zoneId);
-      
+
       const assignedPcIds = data.sessionState.combatTokens
         .filter(t => t.pcId && t.zoneId)
         .map(t => t.pcId);
-      
+
       const pcTokens = data.pcs
         .filter(pc => !assignedPcIds.includes(pc.id))
         .map(pc => ({
           id: `pc-${pc.id}`,
-          name: pc.name,
+          name: getPcDisplayName(pc),
           type: 'pc',
-          isPc: true
+          isPc: true,
+          pcId: pc.id
         }));
-      
+
       const allUnassigned = [...pcTokens, ...unassignedTokens];
-      
-      const unassignedHtml = allUnassigned.length === 0 
+
+      const unassignedHtml = allUnassigned.length === 0
         ? '<p class="empty-state" style="text-align: center; padding: 1rem; font-size: 0.875rem;">No unassigned tokens</p>'
-        : allUnassigned.map(token => `
-            <div class="zone-token ${token.type}-token" 
+        : allUnassigned.map(token => {
+            const tokenType = token.type || (token.isPc ? 'pc' : 'custom');
+            const displayName = tokenType === 'pc'
+              ? (() => {
+                  const pcId = token.pcId !== undefined ? token.pcId : null;
+                  const pc = pcId ? data.pcs.find(p => p.id === pcId) : null;
+                  return pc ? getPcDisplayName(pc) : token.name;
+                })()
+              : token.name;
+
+            return `
+            <div class="zone-token ${tokenType}-token"
                  draggable="true"
                  ondragstart="handleTokenDragStart(event, ${token.isPc ? `'${token.id}'` : token.id})"
                  ondragend="handleTokenDragEnd(event)">
-              <span class="token-name">${token.name}</span>
+              <span class="token-name">${displayName}</span>
               ${!token.isPc ? `
                 <button class="delete-btn" onclick="deleteCombatToken(${token.id})">
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
               ` : ''}
             </div>
-          `).join('');
-      
+          `;
+          }).join('');
+
       unassignedContainer.innerHTML = `
         <div style="padding: 0.5rem;"
-             ondragover="handleZoneDragOver(event)" 
+             ondragover="handleZoneDragOver(event)"
              ondragleave="handleZoneDragLeave(event)"
              ondrop="handleZoneDrop(event, null)">
           ${unassignedHtml}
