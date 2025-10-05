@@ -5,8 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daggerheart Campaign Manager</title>
   <style>
+    :root {
+      --bg-canvas: #0b1120;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --bg-surface-alt: #374151;
+      --border-soft: rgba(148, 163, 184, 0.12);
+      --border-strong: rgba(59, 130, 246, 0.25);
+      --shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.45);
+      --text-primary: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-red: #dc2626;
+      --accent-gold: #fbbf24;
+      --accent-blue: #3b82f6;
+      --radius-lg: 0.75rem;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #111827; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; padding: 1.5rem; }
+    body {
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 45%),
+                  radial-gradient(circle at bottom right, rgba(248, 113, 113, 0.1), transparent 40%),
+                  var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
     .container { max-width: 1280px; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
     h1 { color: #dc2626; font-size: 2.25rem; }
@@ -31,8 +55,8 @@
     .tab-session { background: #0f172a; border: 2px solid #1e40af; font-weight: bold; }
     .tab-session.active { background: #1e40af; color: #fbbf24; }
     .tab-session:hover:not(.active) { background: #1e293b; }
-    .content { background: #1f2937; border-radius: 0.5rem; padding: 1.5rem; }
-    .card { background: #374151; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+    .content { background: var(--bg-panel); border-radius: var(--radius-lg); padding: 2rem; box-shadow: 0 15px 45px rgba(15, 23, 42, 0.35); }
+    .card { background: var(--bg-surface-alt); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
     .card-title { font-weight: bold; font-size: 1.125rem; }
     .card-content { color: #d1d5db; }
@@ -65,7 +89,7 @@
     /* Session View */
     .session-container {
       display: grid;
-      gap: 1.5rem;
+      gap: 1.75rem;
       max-width: 1400px;
       margin: 0 auto;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -73,10 +97,106 @@
         "fear countdown"
         "spotlight combat";
     }
-    .fear-tracker { background: #1f2937; padding: 1rem; border-radius: 0.5rem; text-align: center; grid-area: fear; }
-    .countdown-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; grid-area: countdown; }
-    .spotlight-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; grid-area: spotlight; }
-    .combat-zones-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; grid-area: combat; }
+
+    .session-section {
+      background: linear-gradient(150deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.92));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .session-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 55%);
+      opacity: 0.9;
+    }
+
+    .session-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .session-section.fear-tracker { grid-area: fear; }
+    .session-section.countdown-section { grid-area: countdown; }
+    .session-section.spotlight-section { grid-area: spotlight; }
+    .session-section.combat-zones-section { grid-area: combat; }
+
+    .session-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .session-heading-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .session-subtitle {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .session-section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .session-section-title svg { width: 1.25rem; height: 1.25rem; color: var(--accent-gold); }
+
+    .session-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-weight: 700;
+      color: var(--accent-gold);
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .session-metric span:last-child { font-size: 0.75rem; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; }
+
+    .session-toolbar { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .session-toolbar select,
+    .session-toolbar input[type="text"] {
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+      min-width: 150px;
+    }
+
+    .session-divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(148, 163, 184, 0), rgba(148, 163, 184, 0.35), rgba(148, 163, 184, 0));
+    }
+
+    .session-subcard {
+      background: rgba(15, 23, 42, 0.65);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .session-subcard h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
     @media (max-width: 1024px) {
       .session-container {
         grid-template-columns: 1fr;
@@ -87,37 +207,71 @@
           "combat";
       }
     }
-    .fear-tokens { display: flex; justify-content: center; gap: 0.375rem; margin: 0.75rem 0; flex-wrap: wrap; }
+    .fear-tokens { display: flex; justify-content: flex-start; gap: 0.375rem; margin: 0.75rem 0; flex-wrap: wrap; }
     .fear-token { width: 30px; height: 30px; background: linear-gradient(135deg, #dc2626, #991b1b); border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.2); transition: all 0.4s ease; position: relative; }
     .fear-token.empty { background: #374151; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
     .fear-token.spending { animation: spendFear 0.6s ease; }
     .fear-token.gaining { animation: gainFear 0.5s ease; }
     @keyframes spendFear { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.8; background: #fbbf24; } 100% { transform: scale(0.8); opacity: 1; } }
     @keyframes gainFear { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
-    .fear-controls { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
+    .fear-controls { display: flex; gap: 0.65rem; justify-content: flex-start; margin-top: 0.75rem; flex-wrap: wrap; }
     .fear-spend-flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(220, 38, 38, 0.8); display: flex; align-items: center; justify-content: center; z-index: 9999; animation: flashFear 1.2s ease-out; pointer-events: none; }
     .fear-spend-text { font-size: 5rem; font-weight: bold; color: white; text-shadow: 0 0 30px rgba(0,0,0,0.8); animation: fearTextPulse 1.2s ease-out; }
     @keyframes flashFear { 0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
     @keyframes fearTextPulse { 0% { transform: scale(0.5); opacity: 0; } 30% { transform: scale(1.2); opacity: 1; } 70% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0; } }
     
-    .countdown-item { background: #374151; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.75rem; }
+    .countdown-item {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1.1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      margin-bottom: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    }
     .countdown-item.at-zero { border: 2px solid #fbbf24; }
-    .countdown-display { display: flex; justify-content: center; gap: 0.5rem; margin: 1rem 0; flex-wrap: wrap; }
+    .countdown-display { display: flex; justify-content: flex-start; gap: 0.5rem; margin: 1rem 0; flex-wrap: wrap; }
     .countdown-pip { width: 30px; height: 30px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
     .countdown-pip.empty { background: #1f2937; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
     .countdown-pip.decreasing { animation: decreaseCountdown 0.4s ease; }
     .countdown-pip.increasing { animation: increaseCountdown 0.4s ease; }
     @keyframes decreaseCountdown { 0% { transform: scale(1); } 50% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
     @keyframes increaseCountdown { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-    .countdown-controls { display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin-top: 1rem; }
-    .add-countdown-form { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; gap: 0.75rem; align-items: end; flex-wrap: wrap; margin-bottom: 1rem; }
+    .countdown-controls { display: flex; gap: 0.75rem; align-items: center; justify-content: flex-start; margin-top: 1rem; flex-wrap: wrap; }
+    .add-countdown-form {
+      background: rgba(15, 23, 42, 0.65);
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      display: flex;
+      gap: 0.85rem;
+      align-items: end;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
     .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
     .form-field label { font-size: 0.875rem; color: #9ca3af; }
-    .form-field input, .form-field select { padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; }
+    .form-field input,
+    .form-field select {
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+    }
     
-    .spotlight-controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .spotlight-controls { display: flex; gap: 0.75rem; margin-bottom: 0; width: 100%; }
+    .spotlight-controls select { flex: 1; }
     .spotlight-grid { display: grid; gap: 1rem; }
-    .spotlight-player { background: #374151; padding: 1rem; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .spotlight-player {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1.1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    }
     .spotlight-info { flex: 1; }
     .spotlight-name { font-weight: bold; font-size: 1rem; margin-bottom: 0.5rem; }
     .spotlight-pips { display: flex; gap: 0.25rem; }
@@ -125,9 +279,23 @@
     .spotlight-pip.empty { background: #1f2937; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
     
     /* Combat Zones */
-    .combat-zones-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .combat-zone { background: #374151; padding: 1rem; border-radius: 0.5rem; border: 2px solid #4b5563; min-height: 150px; }
-    .combat-zone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4b5563; }
+    .combat-zones-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .combat-zone {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1.25rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      min-height: 160px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.32);
+    }
+    .combat-zone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
     .combat-zone-name { font-weight: bold; font-size: 1rem; color: #fbbf24; cursor: text; flex: 1; padding: 0.25rem; background: transparent; border: none; }
     .combat-zone-name:hover { background: #1f2937; border-radius: 0.25rem; }
     .zone-tokens-container { display: flex; flex-direction: column; gap: 0.5rem; min-height: 80px; }
@@ -140,9 +308,30 @@
     .zone-token.npc-token { border-left: 3px solid #3b82f6; }
     .token-name { font-size: 0.875rem; font-weight: 500; }
     .combat-zone.drag-over { background: #1f2937; border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-    .zone-controls { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
-    .unassigned-tokens { background: #374151; padding: 1rem; border-radius: 0.5rem; border: 2px dashed #4b5563; margin-top: 1rem; }
-    .add-token-form { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+    .zone-controls { display: flex; gap: 0.75rem; margin-top: 0; flex-wrap: wrap; }
+    .unassigned-tokens {
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.4);
+      margin-top: 1.5rem;
+    }
+    .add-token-form {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .add-token-form select,
+    .add-token-form input[type="text"] {
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+    }
     
     /* Streamer View */
     .streamer-view { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; padding: 3rem; }
@@ -322,13 +511,23 @@
         </div>
 
         <div class="session-container">
-          <div class="fear-tracker">
-            <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Fear</h2>
-            <div style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; color: #dc2626;">
-              <span id="fear-counter">0</span> / 12
+          <section class="session-section fear-tracker">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Table Pulse</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M8.757 15.243l-2.12 2.121m12.727 0l-2.122-2.121M8.757 8.757L6.636 6.636"/></svg>
+                  Fear
+                </h2>
+              </div>
+              <div class="session-metric">
+                <span id="fear-counter">0</span>
+                <span>Max 12</span>
+              </div>
             </div>
+            <div class="session-divider"></div>
             <div id="fear-display" class="fear-tokens"></div>
-            <div class="fear-controls">
+            <div class="session-toolbar fear-controls">
               <button class="btn-primary" onclick="modifyFear(-1)">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
                 Spend Fear
@@ -338,17 +537,27 @@
                 Add Fear
               </button>
             </div>
-          </div>
+          </section>
 
-          <div class="countdown-section">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Countdowns</h2>
+          <section class="session-section countdown-section">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Escalations</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l2.5 1.5M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/></svg>
+                  Countdowns
+                </h2>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Keep looming threats visible and adjust their pace on the fly.</p>
+            <div class="session-divider"></div>
 
             <div class="add-countdown-form">
-              <div class="form-field" style="flex: 2; min-width: 150px;">
+              <div class="form-field" style="flex: 2; min-width: 160px;">
                 <label>Name</label>
                 <input type="text" id="countdown-name" placeholder="Countdown name">
               </div>
-              <div class="form-field" style="flex: 1; min-width: 100px;">
+              <div class="form-field" style="flex: 1; min-width: 110px;">
                 <label>Max</label>
                 <select id="countdown-max">
                   <option value="4">d4</option>
@@ -365,12 +574,22 @@
             </div>
 
             <div id="countdowns-list"></div>
-          </div>
+          </section>
 
-          <div class="spotlight-section">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Spotlight</h2>
-            <div class="spotlight-controls">
-              <select id="spotlight-pc-select" style="flex: 1; padding: 0.5rem; background: #374151; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
+          <section class="session-section spotlight-section">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Moments</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v18m9-9H3"/></svg>
+                  Spotlight
+                </h2>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Queue up who deserves shine next and celebrate their evasion edge.</p>
+            <div class="session-divider"></div>
+            <div class="session-toolbar spotlight-controls">
+              <select id="spotlight-pc-select">
                 <option value="">Select PC</option>
               </select>
               <button class="btn-green" onclick="addSpotlightPlayer()">
@@ -379,11 +598,21 @@
               </button>
             </div>
             <div id="spotlight-list" class="spotlight-grid"></div>
-          </div>
+          </section>
 
-          <div class="combat-zones-section">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Combat Zones</h2>
-            <div class="zone-controls">
+          <section class="session-section combat-zones-section">
+            <div class="session-section-header">
+              <div class="session-heading-group">
+                <span class="session-subtitle">Engagements</span>
+                <h2 class="session-section-title">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16"/></svg>
+                  Combat Zones
+                </h2>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Arrange battlefields, drag tokens between zones, and keep stragglers handy.</p>
+            <div class="session-divider"></div>
+            <div class="session-toolbar zone-controls">
               <button class="btn-green" onclick="addCombatZone()">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 Add Zone
@@ -391,16 +620,16 @@
             </div>
             <div id="combat-zones-container" class="combat-zones-container"></div>
 
-            <div class="unassigned-tokens">
-              <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.75rem;">Unassigned Tokens</h3>
+            <div class="session-subcard unassigned-tokens">
+              <h3>Unassigned Tokens</h3>
               <div class="add-token-form">
-                <select id="token-type" style="padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
+                <select id="token-type">
                   <option value="adversary">Adversary</option>
                   <option value="custom">Custom</option>
                   <option value="npc">Saved NPC</option>
                 </select>
-                <input type="text" id="token-name" placeholder="Token name" style="flex: 1; padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; min-width: 150px;">
-                <select id="token-npc-select" class="hidden" style="flex: 1; padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; min-width: 150px;">
+                <input type="text" id="token-name" placeholder="Token name" style="flex: 1; min-width: 150px;">
+                <select id="token-npc-select" class="hidden" style="flex: 1; min-width: 150px;">
                   <option value="">Select NPC</option>
                 </select>
                 <button class="btn-green" onclick="addCombatToken()">
@@ -410,7 +639,7 @@
               </div>
               <div id="unassigned-tokens" class="zone-tokens-container"></div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
