@@ -61,12 +61,20 @@
     .empty-state { color: #6b7280; font-size: 0.875rem; }
     .generation-card { background: #374151; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
     svg { width: 1.125rem; height: 1.125rem; }
+
+    .pc-card { background: #374151; padding: 0.65rem 0.85rem; border-radius: 0.5rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .pc-card-info { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 140px; }
+    .pc-card-name { font-weight: 600; font-size: 1rem; }
+    .pc-card-class { color: #9ca3af; font-size: 0.85rem; }
+    .pc-card-evasion { display: flex; align-items: center; gap: 0.45rem; color: #d1d5db; font-size: 0.85rem; }
+    .pc-card-evasion input { width: 70px; padding: 0.35rem 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; }
     
     /* Session View */
-    .session-container { display: grid; gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
-    .fear-tracker { background: #1f2937; padding: 1rem; border-radius: 0.5rem; text-align: center; }
-    .fear-tokens { display: flex; justify-content: center; gap: 0.375rem; margin: 0.75rem 0; flex-wrap: wrap; }
-    .fear-token { width: 30px; height: 30px; background: linear-gradient(135deg, #dc2626, #991b1b); border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.2); transition: all 0.4s ease; position: relative; }
+    .session-container { display: grid; gap: 1rem; max-width: 1400px; margin: 0 auto; grid-template-columns: 1fr; }
+    .session-container > * { min-width: 0; }
+    .fear-tracker { background: #1f2937; padding: 0.8rem; border-radius: 0.5rem; text-align: center; }
+    .fear-tokens { display: flex; justify-content: center; gap: 0.3rem; margin: 0.5rem 0; flex-wrap: wrap; }
+    .fear-token { width: 24px; height: 24px; background: linear-gradient(135deg, #dc2626, #991b1b); border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.2); transition: all 0.4s ease; position: relative; }
     .fear-token.empty { background: #374151; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
     .fear-token.spending { animation: spendFear 0.6s ease; }
     .fear-token.gaining { animation: gainFear 0.5s ease; }
@@ -78,41 +86,41 @@
     @keyframes flashFear { 0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
     @keyframes fearTextPulse { 0% { transform: scale(0.5); opacity: 0; } 30% { transform: scale(1.2); opacity: 1; } 70% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0; } }
     
-    .countdown-section { background: #1f2937; padding: 2rem; border-radius: 0.5rem; }
-    .countdown-item { background: #374151; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.75rem; }
+    .countdown-section { background: #1f2937; padding: 1.25rem; border-radius: 0.5rem; }
+    .countdown-item { background: #374151; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 0.6rem; }
     .countdown-item.at-zero { border: 2px solid #fbbf24; }
-    .countdown-display { display: flex; justify-content: center; gap: 0.5rem; margin: 1rem 0; flex-wrap: wrap; }
-    .countdown-pip { width: 30px; height: 30px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+    .countdown-display { display: flex; justify-content: center; gap: 0.35rem; margin: 0.75rem 0; flex-wrap: wrap; }
+    .countdown-pip { width: 24px; height: 24px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
     .countdown-pip.empty { background: #1f2937; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
     .countdown-pip.decreasing { animation: decreaseCountdown 0.4s ease; }
     .countdown-pip.increasing { animation: increaseCountdown 0.4s ease; }
     @keyframes decreaseCountdown { 0% { transform: scale(1); } 50% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
     @keyframes increaseCountdown { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-    .countdown-controls { display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin-top: 1rem; }
-    .add-countdown-form { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; gap: 0.75rem; align-items: end; flex-wrap: wrap; margin-bottom: 1rem; }
+    .countdown-controls { display: flex; gap: 0.4rem; align-items: center; justify-content: center; margin-top: 0.75rem; }
+    .add-countdown-form { background: #374151; padding: 0.6rem; border-radius: 0.5rem; display: flex; gap: 0.6rem; align-items: end; flex-wrap: wrap; margin-bottom: 0.75rem; }
     .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
     .form-field label { font-size: 0.875rem; color: #9ca3af; }
     .form-field input, .form-field select { padding: 0.5rem; background: #1f2937; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6; }
     
-    .spotlight-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; }
-    .spotlight-controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-    .spotlight-grid { display: grid; gap: 1rem; }
-    .spotlight-player { background: #374151; padding: 1rem; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .spotlight-section { background: #1f2937; padding: 1.1rem; border-radius: 0.5rem; }
+    .spotlight-controls { display: flex; gap: 0.45rem; margin-bottom: 0.75rem; }
+    .spotlight-grid { display: grid; gap: 0.75rem; }
+    .spotlight-player { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
     .spotlight-info { flex: 1; }
-    .spotlight-name { font-weight: bold; font-size: 1rem; margin-bottom: 0.5rem; }
-    .spotlight-pips { display: flex; gap: 0.25rem; }
-    .spotlight-pip { width: 20px; height: 20px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+    .spotlight-name { font-weight: bold; font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .spotlight-pips { display: flex; gap: 0.2rem; }
+    .spotlight-pip { width: 16px; height: 16px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
     .spotlight-pip.empty { background: #1f2937; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
     
     /* Combat Zones */
-    .combat-zones-section { background: #1f2937; padding: 1.5rem; border-radius: 0.5rem; }
-    .combat-zones-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .combat-zone { background: #374151; padding: 1rem; border-radius: 0.5rem; border: 2px solid #4b5563; min-height: 150px; }
-    .combat-zone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4b5563; }
-    .combat-zone-name { font-weight: bold; font-size: 1rem; color: #fbbf24; cursor: text; flex: 1; padding: 0.25rem; background: transparent; border: none; }
+    .combat-zones-section { background: #1f2937; padding: 1.1rem; border-radius: 0.5rem; }
+    .combat-zones-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.85rem; margin-top: 0.75rem; }
+    .combat-zone { background: #374151; padding: 0.75rem; border-radius: 0.5rem; border: 2px solid #4b5563; min-height: 120px; }
+    .combat-zone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid #4b5563; }
+    .combat-zone-name { font-weight: bold; font-size: 0.95rem; color: #fbbf24; cursor: text; flex: 1; padding: 0.25rem; background: transparent; border: none; }
     .combat-zone-name:hover { background: #1f2937; border-radius: 0.25rem; }
-    .zone-tokens-container { display: flex; flex-direction: column; gap: 0.5rem; min-height: 80px; }
-    .zone-token { background: #1f2937; padding: 0.5rem; border-radius: 0.375rem; cursor: move; display: flex; justify-content: space-between; align-items: center; border: 1px solid transparent; transition: all 0.2s; }
+    .zone-tokens-container { display: flex; flex-direction: column; gap: 0.4rem; min-height: 70px; }
+    .zone-token { background: #1f2937; padding: 0.4rem 0.5rem; border-radius: 0.375rem; cursor: move; display: flex; justify-content: space-between; align-items: center; border: 1px solid transparent; transition: all 0.2s; }
     .zone-token:hover { background: #111827; border-color: #3b82f6; }
     .zone-token.dragging { opacity: 0.5; }
     .zone-token.pc-token { border-left: 3px solid #16a34a; }
@@ -121,16 +129,16 @@
     .zone-token.npc-token { border-left: 3px solid #3b82f6; }
     .token-name { font-size: 0.875rem; font-weight: 500; }
     .combat-zone.drag-over { background: #1f2937; border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-    .zone-controls { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
-    .unassigned-tokens { background: #374151; padding: 1rem; border-radius: 0.5rem; border: 2px dashed #4b5563; margin-top: 1rem; }
-    .add-token-form { background: #374151; padding: 0.75rem; border-radius: 0.5rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+    .zone-controls { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .unassigned-tokens { background: #374151; padding: 0.85rem; border-radius: 0.5rem; border: 2px dashed #4b5563; margin-top: 0.85rem; }
+    .add-token-form { background: #374151; padding: 0.6rem; border-radius: 0.5rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 0.75rem; }
     
     /* Streamer View */
-    .streamer-view { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; padding: 3rem; }
+    .streamer-view { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; padding: 2rem; }
     .streamer-view .fear-tracker, .streamer-view .countdown-section, .streamer-view .spotlight-section, .streamer-view .combat-zones-section { background: rgba(31, 41, 55, 0.6); border: 3px solid #3b82f6; box-shadow: 0 0 40px rgba(59, 130, 246, 0.3); backdrop-filter: blur(10px); }
-    .streamer-view .fear-token, .streamer-view .countdown-pip { width: 70px; height: 70px; }
-    .streamer-view h2 { font-size: 3rem; margin-bottom: 2rem; text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-    .streamer-view h3 { font-size: 2rem; text-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+    .streamer-view .fear-token, .streamer-view .countdown-pip { width: 48px; height: 48px; }
+    .streamer-view h2 { font-size: 2.1rem; margin-bottom: 1.4rem; text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+    .streamer-view h3 { font-size: 1.6rem; text-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
     .streamer-view .countdown-controls, .streamer-view .spotlight-controls, .streamer-view .zone-controls, .streamer-view .add-token-form, .streamer-view .delete-btn { display: none; }
     .streamer-view .countdown-item { background: #374151; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; border: 2px solid rgba(59, 130, 246, 0.3); }
     .streamer-view .countdown-item.at-zero { border: 2px solid #fbbf24; box-shadow: 0 0 30px rgba(251, 191, 36, 0.8); }
@@ -194,6 +202,7 @@
               <option value="Sorcerer">Sorcerer</option>
               <option value="Wizard">Wizard</option>
             </select>
+            <input type="number" id="pc-evasion" placeholder="Evasion" min="0" style="width: 110px; padding: 0.5rem; background: #374151; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
             <button class="btn-green" onclick="addPC()">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               Add PC
@@ -294,7 +303,7 @@
       </div>
 
       <div id="session-tab" class="hidden">
-        <div style="margin-bottom: 1.5rem;">
+        <div style="margin-bottom: 1rem;">
           <button class="btn-blue" onclick="openStreamerView()">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             Open Streamer View
@@ -302,10 +311,10 @@
         </div>
 
         <div class="session-container">
-         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 0.75rem;">
             <div class="fear-tracker">
-              <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Fear</h2>
-              <div style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; color: #dc2626;">
+              <h2 style="font-size: 1.6rem; font-weight: bold; margin-bottom: 0.6rem;">Fear</h2>
+              <div style="text-align: center; font-size: 1.1rem; font-weight: bold; margin-bottom: 0.35rem; color: #dc2626;">
                 <span id="fear-counter">0</span> / 12
               </div>
               <div id="fear-display" class="fear-tokens"></div>
@@ -321,8 +330,8 @@
               </div>
             </div>
 
-            <div class="countdown-section" style="padding: 1.5rem;">
-              <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Countdowns</h2>
+            <div class="countdown-section" style="padding: 1.1rem;">
+              <h2 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 0.7rem; text-align: center;">Countdowns</h2>
               
               <div class="add-countdown-form">
                 <div class="form-field" style="flex: 2; min-width: 150px;">
@@ -349,9 +358,9 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
             <div class="spotlight-section">
-              <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Spotlight</h2>
+              <h2 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 0.7rem; text-align: center;">Spotlight</h2>
               <div class="spotlight-controls">
                 <select id="spotlight-pc-select" style="flex: 1; padding: 0.5rem; background: #374151; border: 1px solid #4b5563; border-radius: 0.375rem; color: #f3f4f6;">
                   <option value="">Select PC</option>
@@ -365,7 +374,7 @@
             </div>
 
             <div class="combat-zones-section">
-              <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Combat Zones</h2>
+              <h2 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 0.7rem;">Combat Zones</h2>
               <div class="zone-controls">
                 <button class="btn-green" onclick="addCombatZone()">
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -403,7 +412,7 @@
 
 <script>
     // Data structure
-    let data = {
+    const DEFAULT_DATA = {
       pcs: [],
       npcs: [],
       towns: [],
@@ -423,112 +432,528 @@
       hookPool: []
     };
 
+    let data = clone(DEFAULT_DATA);
     let currentGeneration = null;
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function clamp(value, min, max) {
+      if (!Number.isFinite(value)) return min;
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function parseEvasionValue(rawValue) {
+      if (rawValue === undefined || rawValue === null || rawValue === '') return null;
+      const parsed = Number(rawValue);
+      if (!Number.isFinite(parsed) || parsed < 0) return null;
+      return Math.round(parsed);
+    }
+
+    function parseEvasionInput(rawValue) {
+      const trimmed = String(rawValue ?? '').trim();
+      if (trimmed === '') {
+        return { valid: true, value: null };
+      }
+
+      const parsed = Number(trimmed);
+      if (!Number.isFinite(parsed) || parsed < 0) {
+        return { valid: false, value: null };
+      }
+
+      return { valid: true, value: Math.round(parsed) };
+    }
+
+    function getPcEvasion(pc) {
+      return pc ? parseEvasionValue(pc.evasion) : null;
+    }
+
+    function getPcById(id) {
+      return data.pcs.find(pc => pc.id === id);
+    }
+
+    function formatPcLabel(pc) {
+      if (!pc) return 'Unknown PC';
+      const evasion = getPcEvasion(pc);
+      return evasion === null ? pc.name : `${pc.name} (Ev ${evasion})`;
+    }
+
+    function getTokenDisplay(token) {
+      if (!token) return 'Token';
+      if (typeof token.displayName === 'string' && token.displayName.trim()) {
+        return token.displayName.trim();
+      }
+      if (token.type === 'pc' && token.pcId !== undefined) {
+        const pc = getPcById(token.pcId);
+        return pc ? formatPcLabel(pc) : (token.name || 'PC');
+      }
+      return token.name || 'Token';
+    }
+
+    function randomItem(items) {
+      if (!Array.isArray(items) || items.length === 0) return null;
+      const index = Math.floor(Math.random() * items.length);
+      return items[index];
+    }
+
+    function extractNameParts(pool) {
+      const parts = { first: [], last: [], titles: [], roles: [], descriptors: [] };
+      const addUnique = (collection, value) => {
+        if (!value) return;
+        if (!collection.includes(value)) {
+          collection.push(value);
+        }
+      };
+
+      function walk(value, hint = '') {
+        if (value === undefined || value === null) return;
+
+        if (Array.isArray(value)) {
+          value.forEach(item => walk(item, hint));
+          return;
+        }
+
+        if (typeof value === 'string') {
+          const trimmed = value.trim();
+          if (!trimmed) return;
+
+          const lowerHint = hint.toLowerCase();
+          if (lowerHint.includes('last') || lowerHint.includes('surname') || lowerHint.includes('family') || lowerHint.includes('clan')) {
+            addUnique(parts.last, trimmed);
+          } else if (lowerHint.includes('title') || lowerHint.includes('honor')) {
+            addUnique(parts.titles, trimmed);
+          } else if (lowerHint.includes('role') || lowerHint.includes('occupation') || lowerHint.includes('job') || lowerHint.includes('profession') || lowerHint.includes('duty')) {
+            addUnique(parts.roles, trimmed);
+          } else if (lowerHint.includes('descriptor') || lowerHint.includes('trait') || lowerHint.includes('detail') || lowerHint.includes('appearance') || lowerHint.includes('personality') || lowerHint.includes('quirk')) {
+            addUnique(parts.descriptors, trimmed);
+          } else if (lowerHint.includes('first') || lowerHint.includes('given') || lowerHint.includes('personal') || lowerHint.includes('name')) {
+            addUnique(parts.first, trimmed);
+          } else {
+            addUnique(parts.first, trimmed);
+          }
+          return;
+        }
+
+        if (typeof value === 'object') {
+          Object.entries(value).forEach(([key, val]) => {
+            const nextHint = `${hint} ${key}`.trim();
+            walk(val, nextHint);
+          });
+        }
+      }
+
+      walk(pool, '');
+
+      parts.first = Array.from(new Set(parts.first));
+      parts.last = Array.from(new Set(parts.last));
+      parts.titles = Array.from(new Set(parts.titles));
+      parts.roles = Array.from(new Set(parts.roles));
+      parts.descriptors = Array.from(new Set(parts.descriptors));
+
+      return parts;
+    }
+
+    function extractPoolSections(pool) {
+      const sections = { primary: [], descriptors: [], hooks: [] };
+      const addUnique = (collection, value) => {
+        if (!value) return;
+        if (!collection.includes(value)) {
+          collection.push(value);
+        }
+      };
+
+      function walk(value, hint = '') {
+        if (value === undefined || value === null) return;
+
+        if (Array.isArray(value)) {
+          value.forEach(item => walk(item, hint));
+          return;
+        }
+
+        if (typeof value === 'string') {
+          const trimmed = value.trim();
+          if (!trimmed) return;
+
+          const lowerHint = hint.toLowerCase();
+          if (lowerHint.includes('descriptor') || lowerHint.includes('detail') || lowerHint.includes('trait') || lowerHint.includes('feature') || lowerHint.includes('vibe') || lowerHint.includes('quality')) {
+            addUnique(sections.descriptors, trimmed);
+          } else if (lowerHint.includes('hook') || lowerHint.includes('trouble') || lowerHint.includes('threat') || lowerHint.includes('problem') || lowerHint.includes('danger') || lowerHint.includes('quest') || lowerHint.includes('prompt') || lowerHint.includes('goal') || lowerHint.includes('challenge')) {
+            addUnique(sections.hooks, trimmed);
+          } else {
+            addUnique(sections.primary, trimmed);
+          }
+          return;
+        }
+
+        if (typeof value === 'object') {
+          Object.entries(value).forEach(([key, val]) => {
+            const nextHint = `${hint} ${key}`.trim();
+            walk(val, nextHint);
+          });
+        }
+      }
+
+      walk(pool, '');
+
+      return sections;
+    }
+
+    function buildLocationDescription(sections, fallback) {
+      const parts = [];
+      const descriptor = randomItem(sections.descriptors);
+      if (descriptor) parts.push(descriptor);
+      const hook = randomItem(sections.hooks);
+      if (hook) parts.push(`Trouble: ${hook}`);
+      if (parts.length === 0) return fallback;
+      return parts.join('. ');
+    }
+
+    function normalizeData(raw) {
+      const source = (raw && typeof raw === 'object') ? raw : {};
+      const normalized = clone(DEFAULT_DATA);
+      const baseTime = Date.now();
+      let increment = 0;
+      const nextId = () => { increment += 1; return baseTime + increment; };
+      const toId = value => {
+        const numeric = Number(value);
+        return Number.isFinite(numeric) ? numeric : nextId();
+      };
+
+      if (Array.isArray(source.pcs)) {
+        normalized.pcs = source.pcs.map((pc, index) => {
+          const evasion = parseEvasionValue(pc?.evasion);
+          const result = {
+            id: toId(pc?.id ?? index),
+            name: typeof pc?.name === 'string' && pc.name.trim() ? pc.name.trim() : `PC ${index + 1}`,
+            class: typeof pc?.class === 'string' && pc.class.trim() ? pc.class.trim() : 'Unknown'
+          };
+          if (evasion !== null) {
+            result.evasion = evasion;
+          }
+          return result;
+        });
+      }
+
+      if (Array.isArray(source.npcs)) {
+        normalized.npcs = source.npcs.map((npc, index) => ({
+          id: toId(npc?.id ?? index),
+          name: typeof npc?.name === 'string' && npc.name.trim() ? npc.name.trim() : `NPC ${index + 1}`,
+          role: typeof npc?.role === 'string' && npc.role.trim() ? npc.role.trim() : 'Unknown Role',
+          description: typeof npc?.description === 'string' ? npc.description : 'A mysterious individual...',
+          status: ['Alive', 'Dead', 'Unknown'].includes(npc?.status) ? npc.status : 'Unknown',
+          met: Boolean(npc?.met),
+          starred: Boolean(npc?.starred)
+        }));
+      }
+
+      if (Array.isArray(source.towns)) {
+        normalized.towns = source.towns.map((town, index) => ({
+          id: toId(town?.id ?? index),
+          name: typeof town?.name === 'string' && town.name.trim() ? town.name.trim() : `Town ${index + 1}`,
+          description: typeof town?.description === 'string' ? town.description : 'A settlement in the realm...'
+        }));
+      }
+
+      if (Array.isArray(source.areas)) {
+        normalized.areas = source.areas.map((area, index) => ({
+          id: toId(area?.id ?? index),
+          name: typeof area?.name === 'string' && area.name.trim() ? area.name.trim() : `Area ${index + 1}`,
+          description: typeof area?.description === 'string' ? area.description : 'An interesting location...'
+        }));
+      }
+
+      if (Array.isArray(source.plotHooks)) {
+        normalized.plotHooks = source.plotHooks.map((hook, index) => ({
+          id: toId(hook?.id ?? index),
+          title: typeof hook?.title === 'string' && hook.title.trim() ? hook.title.trim() : `Hook ${index + 1}`,
+          description: typeof hook?.description === 'string' ? hook.description : 'An adventure beckons...'
+        }));
+      }
+
+      if (Array.isArray(source.loot)) {
+        normalized.loot = source.loot.map((item, index) => ({
+          id: toId(item?.id ?? index),
+          name: typeof item?.name === 'string' && item.name.trim() ? item.name.trim() : `Loot ${index + 1}`,
+          effect: typeof item?.effect === 'string' ? item.effect : 'Magical effect...',
+          tier: typeof item?.tier === 'string' && item.tier.trim() ? item.tier.trim() : 'Minor'
+        }));
+      }
+
+      const sessionSource = (source.sessionState && typeof source.sessionState === 'object') ? source.sessionState : {};
+      const allowedTokenTypes = new Set(['pc', 'npc', 'adversary', 'custom']);
+
+      const normalizedSession = clone(DEFAULT_DATA.sessionState);
+      normalizedSession.fear = clamp(Math.round(Number(sessionSource.fear) || 0), 0, 12);
+
+      if (Array.isArray(sessionSource.countdowns)) {
+        normalizedSession.countdowns = sessionSource.countdowns.map((countdown, index) => {
+          const max = clamp(Math.round(Number(countdown?.max) || 6), 1, 20);
+          const currentRaw = Math.round(Number(countdown?.current));
+          const current = clamp(Number.isFinite(currentRaw) ? currentRaw : max, 0, max);
+          return {
+            id: toId(countdown?.id ?? index),
+            name: typeof countdown?.name === 'string' && countdown.name.trim() ? countdown.name.trim() : `Countdown ${index + 1}`,
+            max,
+            current
+          };
+        });
+      }
+
+      if (Array.isArray(sessionSource.spotlightPlayers)) {
+        normalizedSession.spotlightPlayers = sessionSource.spotlightPlayers.map((player, index) => {
+          const pcId = Number(player?.pcId);
+          return {
+            id: toId(player?.id ?? index),
+            pcId: Number.isFinite(pcId) ? pcId : null,
+            name: typeof player?.name === 'string' && player.name.trim() ? player.name.trim() : `Player ${index + 1}`,
+            pips: clamp(Math.round(Number(player?.pips) || 0), 0, 6)
+          };
+        });
+      }
+
+      if (Array.isArray(sessionSource.combatTokens)) {
+        normalizedSession.combatTokens = sessionSource.combatTokens.map((token, index) => {
+          const zoneId = Number(token?.zoneId);
+          const pcId = Number(token?.pcId);
+          const type = typeof token?.type === 'string' ? token.type : 'custom';
+          const normalizedToken = {
+            id: toId(token?.id ?? index),
+            name: typeof token?.name === 'string' && token.name.trim() ? token.name.trim() : `Token ${index + 1}`,
+            type: allowedTokenTypes.has(type) ? type : 'custom',
+            zoneId: Number.isFinite(zoneId) ? zoneId : null
+          };
+          if (Number.isFinite(pcId)) {
+            normalizedToken.pcId = pcId;
+          }
+          if (token?.npcId !== undefined) {
+            const npcId = Number(token.npcId);
+            if (Number.isFinite(npcId)) {
+              normalizedToken.npcId = npcId;
+            }
+          }
+          return normalizedToken;
+        });
+      }
+
+      if (Array.isArray(sessionSource.combatZones)) {
+        normalizedSession.combatZones = sessionSource.combatZones.map((zone, index) => ({
+          id: toId(zone?.id ?? index),
+          name: typeof zone?.name === 'string' && zone.name.trim() ? zone.name.trim() : `Zone ${index + 1}`,
+          tokenIds: Array.isArray(zone?.tokenIds) ? zone.tokenIds.map(id => Number(id)).filter(Number.isFinite) : []
+        }));
+      }
+
+      const validTokenIds = new Set(normalizedSession.combatTokens.map(token => token.id));
+      normalizedSession.combatZones = normalizedSession.combatZones.map(zone => ({
+        ...zone,
+        tokenIds: zone.tokenIds.filter(id => validTokenIds.has(id))
+      }));
+      const validZoneIds = new Set(normalizedSession.combatZones.map(zone => zone.id));
+      normalizedSession.combatTokens.forEach(token => {
+        if (token.zoneId !== null && !validZoneIds.has(token.zoneId)) {
+          token.zoneId = null;
+        }
+      });
+
+      normalized.sessionState = normalizedSession;
+
+      normalized.namePool = (source.namePool && typeof source.namePool === 'object') ? clone(source.namePool) : clone(DEFAULT_DATA.namePool);
+      normalized.townPool = source.townPool !== undefined ? clone(source.townPool) : clone(DEFAULT_DATA.townPool);
+      normalized.areaPool = source.areaPool !== undefined ? clone(source.areaPool) : clone(DEFAULT_DATA.areaPool);
+      normalized.hookPool = source.hookPool !== undefined ? clone(source.hookPool) : clone(DEFAULT_DATA.hookPool);
+
+      return normalized;
+    }
 
     // Storage functions
     function saveToStorage() {
-      localStorage.setItem('daggerheartData', JSON.stringify(data));
+      try {
+        data = normalizeData(data);
+        localStorage.setItem('daggerheartData', JSON.stringify(data));
+      } catch (error) {
+        console.error('Failed to save data', error);
+      }
     }
 
     function loadFromStorage() {
-      const saved = localStorage.getItem('daggerheartData');
-      if (saved) {
-        data = JSON.parse(saved);
+      try {
+        const saved = localStorage.getItem('daggerheartData');
+        data = normalizeData(saved ? JSON.parse(saved) : DEFAULT_DATA);
+        localStorage.setItem('daggerheartData', JSON.stringify(data));
+      } catch (error) {
+        console.error('Failed to load data, resetting to defaults', error);
+        data = clone(DEFAULT_DATA);
+        saveToStorage();
       }
     }
 
     // Tab switching
     function switchTab(tabName) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('[id$="-tab"]').forEach(t => t.classList.add('hidden'));
-  
-  // Find the tab button that was clicked
-  const tabButton = Array.from(document.querySelectorAll('.tab')).find(
-    tab => tab.textContent.toLowerCase().includes(tabName) || 
-           tab.getAttribute('onclick')?.includes(`'${tabName}'`)
-  );
-  if (tabButton) {
-    tabButton.classList.add('active');
-  }
-  
-  document.getElementById(`${tabName}-tab`).classList.remove('hidden');
-  
-  if (tabName === 'session') {
-    renderSessionView();
-  }
-}
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('[id$="-tab"]').forEach(t => t.classList.add('hidden'));
+
+      // Find the tab button that was clicked
+      const tabButton = Array.from(document.querySelectorAll('.tab')).find(
+        tab => tab.textContent.toLowerCase().includes(tabName) ||
+               tab.getAttribute('onclick')?.includes(`'${tabName}'`)
+      );
+      if (tabButton) {
+        tabButton.classList.add('active');
+      }
+
+      document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+
+      if (tabName === 'session') {
+        renderSessionView();
+      }
+    }
 
     // PC Functions
     function addPC() {
       const name = document.getElementById('pc-name').value.trim();
       const pcClass = document.getElementById('pc-class').value;
-      
+      const evasionInput = document.getElementById('pc-evasion');
+      const { valid, value: evasionValue } = parseEvasionInput(evasionInput.value);
+
       if (!name || !pcClass) {
         alert('Please enter both name and class');
         return;
       }
-      
-      data.pcs.push({
+
+      if (!valid) {
+        alert('Please enter a valid evasion score (0 or higher).');
+        evasionInput.focus();
+        return;
+      }
+
+      const newPc = {
         id: Date.now(),
         name,
         class: pcClass
-      });
-      
+      };
+
+      if (evasionValue !== null) {
+        newPc.evasion = evasionValue;
+      }
+
+      data.pcs.push(newPc);
+
       saveToStorage();
       renderPCs();
-      
+      populateSpotlightSelect();
+      renderSpotlightTracker();
+      renderCombatZones();
+
       document.getElementById('pc-name').value = '';
       document.getElementById('pc-class').value = '';
+      evasionInput.value = '';
     }
 
     function deletePC(id) {
       if (confirm('Delete this PC?')) {
         data.pcs = data.pcs.filter(pc => pc.id !== id);
+        data.sessionState.spotlightPlayers = data.sessionState.spotlightPlayers.filter(player => player.pcId !== id);
+        data.sessionState.combatTokens = data.sessionState.combatTokens.filter(token => token.pcId !== id);
+        data.sessionState.combatZones.forEach(zone => {
+          zone.tokenIds = zone.tokenIds.filter(tokenId => data.sessionState.combatTokens.some(token => token.id === tokenId));
+        });
         saveToStorage();
         renderPCs();
+        populateSpotlightSelect();
+        renderSpotlightTracker();
+        renderCombatZones();
       }
+    }
+
+    function updatePCEvasion(id, value) {
+      const pc = data.pcs.find(entry => entry.id === id);
+      if (!pc) {
+        renderPCs();
+        return;
+      }
+
+      const { valid, value: evasionValue } = parseEvasionInput(value);
+      if (!valid) {
+        renderPCs();
+        return;
+      }
+
+      if (evasionValue === null) {
+        delete pc.evasion;
+      } else {
+        pc.evasion = evasionValue;
+      }
+
+      saveToStorage();
+      renderPCs();
+      renderSpotlightTracker();
+      populateSpotlightSelect();
+      renderCombatZones();
     }
 
     function renderPCs() {
       const container = document.getElementById('pc-list');
-      if (data.pcs.length === 0) {
+      if (!container) return;
+
+      if (!Array.isArray(data.pcs) || data.pcs.length === 0) {
         container.innerHTML = '<p class="empty-state">No PCs added yet</p>';
         return;
       }
-      
-      container.innerHTML = data.pcs.map(pc => `
-        <div style="background: #374151; padding: 0.5rem 1rem; border-radius: 0.375rem; display: flex; gap: 0.5rem; align-items: center;">
-          <span style="font-weight: 500;">${pc.name}</span>
-          <span style="color: #9ca3af; font-size: 0.875rem;">(${pc.class})</span>
-          <button class="delete-btn" onclick="deletePC(${pc.id})">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-      `).join('');
+
+      container.innerHTML = data.pcs.map(pc => {
+        const evasion = getPcEvasion(pc);
+        const evasionValue = evasion === null ? '' : evasion;
+
+        return `
+          <div class="pc-card">
+            <div class="pc-card-info">
+              <span class="pc-card-name">${pc.name}</span>
+              <span class="pc-card-class">${pc.class}</span>
+            </div>
+            <label class="pc-card-evasion">
+              <span>Evasion</span>
+              <input type="number" min="0" value="${evasionValue}" placeholder="-" onchange="updatePCEvasion(${pc.id}, this.value)">
+            </label>
+            <button class="delete-btn" onclick="deletePC(${pc.id})">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
     }
 
     // NPC Functions
     function generateNPC() {
-      const first = data.namePool.first.length > 0 
-        ? data.namePool.first[Math.floor(Math.random() * data.namePool.first.length)]
-        : 'Generated';
-      const last = data.namePool.last.length > 0
-        ? data.namePool.last[Math.floor(Math.random() * data.namePool.last.length)]
-        : 'NPC';
-      
+      const nameParts = extractNameParts(data.namePool);
+      const first = randomItem(nameParts.first) || 'Generated';
+      const last = randomItem(nameParts.last);
+      const honorific = randomItem(nameParts.titles);
+
+      const fullNameParts = [first];
+      if (last) fullNameParts.push(last);
+      let fullName = fullNameParts.join(' ');
+      if (honorific) {
+        fullName = `${honorific} ${fullName}`.trim();
+      }
+
+      const role = randomItem(nameParts.roles) || honorific || 'Unknown Role';
+      const descriptor = randomItem(nameParts.descriptors);
+      const description = descriptor || 'A mysterious individual...';
+
       currentGeneration = {
         type: 'npc',
         data: {
           id: Date.now(),
-          name: `${first} ${last}`,
-          role: 'Unknown Role',
-          description: 'A mysterious individual...',
+          name: fullName,
+          role,
+          description,
           status: 'Unknown',
           met: false,
           starred: false
         }
       };
-      
+
       renderNPCGeneration();
     }
 
@@ -690,19 +1115,19 @@
 
     // Town Functions
     function generateTown() {
-      const townName = data.townPool.length > 0
-        ? data.townPool[Math.floor(Math.random() * data.townPool.length)]
-        : 'New Settlement';
-      
+      const sections = extractPoolSections(data.townPool);
+      const townName = randomItem(sections.primary) || 'New Settlement';
+      const description = buildLocationDescription(sections, 'A settlement in the realm...');
+
       currentGeneration = {
         type: 'town',
         data: {
           id: Date.now(),
           name: townName,
-          description: 'A settlement in the realm...'
+          description
         }
       };
-      
+
       renderTownGeneration();
     }
 
@@ -779,19 +1204,19 @@
 
     // Area Functions
     function generateArea() {
-      const areaName = data.areaPool.length > 0
-        ? data.areaPool[Math.floor(Math.random() * data.areaPool.length)]
-        : 'Mysterious Location';
-      
+      const sections = extractPoolSections(data.areaPool);
+      const areaName = randomItem(sections.primary) || 'Mysterious Location';
+      const description = buildLocationDescription(sections, 'An interesting location...');
+
       currentGeneration = {
         type: 'area',
         data: {
           id: Date.now(),
           name: areaName,
-          description: 'An interesting location...'
+          description
         }
       };
-      
+
       renderAreaGeneration();
     }
 
@@ -865,21 +1290,26 @@
         </div>
       `).join('');
     }
-// Plot Hook Functions
+    // Plot Hook Functions
     function generateHook() {
-      const hookText = data.hookPool.length > 0
-        ? data.hookPool[Math.floor(Math.random() * data.hookPool.length)]
-        : 'A mysterious quest appears...';
-      
+      const sections = extractPoolSections(data.hookPool);
+      const hookTitle = randomItem(sections.primary) || 'New Plot Hook';
+      const descriptor = randomItem(sections.descriptors);
+      const hookDetail = randomItem(sections.hooks);
+      const details = [];
+      if (descriptor) details.push(descriptor);
+      if (hookDetail) details.push(hookDetail);
+      const description = details.length ? details.join('. ') : 'An adventure beckons...';
+
       currentGeneration = {
         type: 'hook',
         data: {
           id: Date.now(),
-          title: 'New Plot Hook',
-          description: hookText
+          title: hookTitle,
+          description
         }
       };
-      
+
       renderHookGeneration();
     }
 
@@ -1237,11 +1667,16 @@
       const select = document.getElementById('spotlight-pc-select');
       if (!select) return;
       
-      const alreadyInSpotlight = data.sessionState.spotlightPlayers.map(p => p.pcId);
+      const alreadyInSpotlight = data.sessionState.spotlightPlayers
+        .map(p => p.pcId)
+        .filter(id => id !== null && id !== undefined);
+
       const availablePCs = data.pcs.filter(pc => !alreadyInSpotlight.includes(pc.id));
-      
+
       select.innerHTML = '<option value="">Select PC</option>' +
-        availablePCs.map(pc => `<option value="${pc.id}">${pc.name}</option>`).join('');
+        availablePCs
+          .map(pc => `<option value="${pc.id}">${formatPcLabel(pc)}</option>`)
+          .join('');
     }
 
     function addSpotlightPlayer() {
@@ -1271,8 +1706,9 @@
     function modifySpotlight(id, delta) {
       const player = data.sessionState.spotlightPlayers.find(p => p.id === id);
       if (!player) return;
-      
-      player.pips = Math.max(0, Math.min(6, player.pips + delta));
+
+      const current = Number.isFinite(player.pips) ? player.pips : 0;
+      player.pips = Math.max(0, Math.min(6, current + delta));
       saveToStorage();
       renderSpotlightTracker();
     }
@@ -1288,18 +1724,23 @@
       const container = document.getElementById('spotlight-list');
       if (!container) return;
       
-      if (data.sessionState.spotlightPlayers.length === 0) {
+      if (!Array.isArray(data.sessionState.spotlightPlayers) || data.sessionState.spotlightPlayers.length === 0) {
         container.innerHTML = '<p class="empty-state" style="grid-column: 1/-1; text-align: center;">No players in spotlight tracker.</p>';
         return;
       }
-      
-      container.innerHTML = data.sessionState.spotlightPlayers.map(player => `
+
+      container.innerHTML = data.sessionState.spotlightPlayers.map(player => {
+        const pc = player.pcId !== null && player.pcId !== undefined ? getPcById(player.pcId) : null;
+        const displayName = pc ? formatPcLabel(pc) : player.name;
+        const pips = Number.isFinite(player.pips) ? player.pips : 0;
+
+        return `
         <div class="spotlight-player">
           <div class="spotlight-info">
-            <div class="spotlight-name">${player.name}</div>
+            <div class="spotlight-name">${displayName}</div>
             <div class="spotlight-pips">
-              ${Array.from({length: 6}, (_, i) => 
-                `<div class="spotlight-pip ${i < player.pips ? '' : 'empty'}"></div>`
+              ${Array.from({length: 6}, (_, i) =>
+                `<div class="spotlight-pip ${i < pips ? '' : 'empty'}"></div>`
               ).join('')}
             </div>
           </div>
@@ -1315,7 +1756,8 @@
             </button>
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 // Combat Zones Functions
     function addCombatZone() {
@@ -1508,8 +1950,8 @@
             .filter(t => t);
           
           return `
-            <div class="combat-zone" 
-                 ondragover="handleZoneDragOver(event)" 
+            <div class="combat-zone"
+                 ondragover="handleZoneDragOver(event)"
                  ondragleave="handleZoneDragLeave(event)"
                  ondrop="handleZoneDrop(event, ${zone.id})">
               <div class="combat-zone-header">
@@ -1524,13 +1966,13 @@
                 </button>
               </div>
               <div class="zone-tokens-container">
-                ${tokens.length === 0 ? '<p class="empty-state" style="text-align: center; padding: 1rem; font-size: 0.875rem;">Drop tokens here</p>' : 
+                ${tokens.length === 0 ? '<p class="empty-state" style="text-align: center; padding: 1rem; font-size: 0.875rem;">Drop tokens here</p>' :
                   tokens.map(token => `
-                    <div class="zone-token ${token.type}-token" 
+                    <div class="zone-token ${token.type}-token"
                          draggable="true"
                          ondragstart="handleTokenDragStart(event, ${token.id})"
                          ondragend="handleTokenDragEnd(event)">
-                      <span class="token-name">${token.name}</span>
+                      <span class="token-name">${getTokenDisplay(token)}</span>
                       <button class="delete-btn" onclick="deleteCombatToken(${token.id})">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                       </button>
@@ -1554,27 +1996,35 @@
         .map(pc => ({
           id: `pc-${pc.id}`,
           name: pc.name,
+          displayName: formatPcLabel(pc),
           type: 'pc',
-          isPc: true
+          isPc: true,
+          pcId: pc.id
         }));
       
       const allUnassigned = [...pcTokens, ...unassignedTokens];
-      
-      const unassignedHtml = allUnassigned.length === 0 
+
+      const unassignedHtml = allUnassigned.length === 0
         ? '<p class="empty-state" style="text-align: center; padding: 1rem; font-size: 0.875rem;">No unassigned tokens</p>'
-        : allUnassigned.map(token => `
-            <div class="zone-token ${token.type}-token" 
-                 draggable="true"
-                 ondragstart="handleTokenDragStart(event, ${token.isPc ? `'${token.id}'` : token.id})"
-                 ondragend="handleTokenDragEnd(event)">
-              <span class="token-name">${token.name}</span>
-              ${!token.isPc ? `
-                <button class="delete-btn" onclick="deleteCombatToken(${token.id})">
+        : allUnassigned.map(token => {
+            const isPcToken = Boolean(token.isPc) || (token.type === 'pc' && token.pcId !== undefined);
+            const dragId = token.isPc ? `\'${token.id}\'` : token.id;
+            const deleteButton = !isPcToken
+              ? `<button class="delete-btn" onclick="deleteCombatToken(${token.id})">
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-              ` : ''}
-            </div>
-          `).join('');
+                </button>`
+              : '';
+
+            return `
+              <div class="zone-token ${token.type}-token"
+                   draggable="true"
+                   ondragstart="handleTokenDragStart(event, ${dragId})"
+                   ondragend="handleTokenDragEnd(event)">
+                <span class="token-name">${getTokenDisplay(token)}</span>
+                ${deleteButton}
+              </div>
+            `;
+          }).join('');
       
       unassignedContainer.innerHTML = `
         <div style="padding: 0.5rem;"
@@ -1609,16 +2059,28 @@
     function importData(event) {
       const file = event.target.files[0];
       if (!file) return;
-      
+
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          data = JSON.parse(e.target.result);
+          const imported = JSON.parse(e.target.result);
+          data = normalizeData(imported);
           saveToStorage();
-          location.reload();
+          renderPCs();
+          renderNPCList();
+          filterNPCs();
+          renderTownList();
+          renderAreaList();
+          renderHookList();
+          renderLootList();
+          populateSpotlightSelect();
+          populateNPCSelect();
+          renderSessionView();
+          alert('Campaign data imported successfully.');
         } catch (error) {
           alert('Invalid data file');
         }
+        event.target.value = '';
       };
       reader.readAsText(file);
     }
@@ -1631,15 +2093,23 @@
       reader.onload = (e) => {
         try {
           const pools = JSON.parse(e.target.result);
-          if (pools.namePool) data.namePool = pools.namePool;
-          if (pools.townPool) data.townPool = pools.townPool;
-          if (pools.areaPool) data.areaPool = pools.areaPool;
-          if (pools.hookPool) data.hookPool = pools.hookPool;
+          if (pools.namePool !== undefined) data.namePool = clone(pools.namePool);
+          if (pools.townPool !== undefined) data.townPool = clone(pools.townPool);
+          if (pools.areaPool !== undefined) data.areaPool = clone(pools.areaPool);
+          if (pools.hookPool !== undefined) data.hookPool = clone(pools.hookPool);
+          data = normalizeData(data);
           saveToStorage();
           alert('Pools imported successfully!');
+          populateNPCSelect();
+          renderNPCGeneration();
+          renderTownGeneration();
+          renderAreaGeneration();
+          renderHookGeneration();
+          renderLootGeneration();
         } catch (error) {
           alert('Invalid pools file');
         }
+        event.target.value = '';
       };
       reader.readAsText(file);
     }
@@ -1666,10 +2136,10 @@
         document.body.innerHTML = `
           <div class="streamer-view">
             <div style="max-width: 1600px; margin: 0 auto;">
-              <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-bottom: 2rem;">
+              <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.3rem; margin-bottom: 1.3rem;">
                 <div class="fear-tracker">
                   <h2>Fear</h2>
-                  <div style="text-align: center; font-size: 2rem; font-weight: bold; margin-bottom: 1rem; color: #dc2626;">
+                  <div style="text-align: center; font-size: 1.6rem; font-weight: bold; margin-bottom: 0.6rem; color: #dc2626;">
                     <span id="fear-counter">0</span> / 12
                   </div>
                   <div id="fear-display" class="fear-tokens"></div>
@@ -1679,7 +2149,7 @@
                   <div id="countdowns-list"></div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+              <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.3rem;">
                 <div class="spotlight-section">
                   <h2 style="text-align: center;">Player Spotlight</h2>
                   <div id="spotlight-list" class="spotlight-grid"></div>
@@ -1687,8 +2157,8 @@
                 <div class="combat-zones-section">
                   <h2 style="text-align: center;">Combat Zones</h2>
                   <div id="combat-zones-container" class="combat-zones-container"></div>
-                  <div class="unassigned-tokens" style="margin-top: 1.5rem;">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Unassigned</h3>
+                  <div class="unassigned-tokens" style="margin-top: 1rem;">
+                    <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.7rem; text-align: center;">Unassigned</h3>
                     <div id="unassigned-tokens" class="zone-tokens-container"></div>
                   </div>
                 </div>
